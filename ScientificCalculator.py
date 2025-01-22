@@ -51,6 +51,52 @@ def cotangent(x):
     else:
         return 'Undefined (tan(x) = 0)'
 
+def logarithm(x, terms=10):
+    if x <= 0:
+        return 'Undefined (logarithm for x <= 0)'
+    y = x - 1
+    ln_x = 0
+    for n in range(1, terms + 1):
+        term = ((-1) ** (n + 1)) * (y ** n) / n
+        ln_x += term
+    return ln_x
+   
+def log_base(x, base, terms=10):
+    ln_x = logarithm(x, terms)
+    ln_base = logarithm(base, terms)
+    if isinstance(ln_x, str) or isinstance(ln_base, str):
+        return 'Invalid input for logarithm'
+    return ln_x / ln_base
+
+def exponential(x, terms=10):
+    exp_x = 1
+    for n in range(1, terms + 1):
+        term = (x ** n) / factorial(n)
+        exp_x += term
+    return exp_x
+
+def arithmetic():
+    print("\nChoose an arithmetic operation:")
+    print("1. Add (+)    2. Subtract (-)    3. Multiply (*)    4. Divide (/)")
+    op = int(input("Enter the operation index: "))
+    
+    a = float(input("Enter the first number: "))
+    b = float(input("Enter the second number: "))
+    
+    if op == 1:
+        print(f"{a} + {b} = {a + b}")
+    elif op == 2:
+        print(f"{a} - {b} = {a - b}")
+    elif op == 3:
+        print(f"{a} * {b} = {a * b}")
+    elif op == 4:
+        if b != 0:
+            print(f"{a} / {b} = {a / b}")
+        else:
+            print("Cannot divide by zero")
+    else:
+        print("Invalid operation")
+
 def trigonometricfn():
     print("Performing Trigonometric operations...\n")
     tMenu = 1000
@@ -82,12 +128,26 @@ def trigonometricfn():
 
 def logarithmicfn():
     print("Performing Logarithmic operations...")
+    x = float(input("Enter the value of x: "))
+    if x > 0:
+        print(f"ln({x}) = {logarithm(x)}")
+    else:
+        print("Logarithm undefined for x <= 0.")
+    
+    base = float(input("Enter the base: "))
+    if base > 0 and base != 1:
+        print(f"log_{base}({x}) = {log_base(x, base)}")
+    else:
+        print("Invalid base for logarithm.")
 
 def exponentialfn():
     print("Performing Exponential operations...")
+    x = float(input("Enter the value of x: "))
+    print(f"e^{x} = {exponential(x)}")
 
 def arithmeticfn():
     print("Performing Arithmetic operations...")
+    arithmetic()
 
 if __name__ == '__main__':
     print("")
